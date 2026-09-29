@@ -1,0 +1,35 @@
+@baseUrl = http://localhost:4004
+
+### 1. Read all the courses
+GET {{baseUrl}}/courses/Courses
+
+
+
+### 2. Read a single course by the primary key
+GET {{baseUrl}}/course/Courses(22100027-bb42-4d00-8f49-6771d7c370d6)
+
+
+### 3. Create a course
+POST {{baseUrl}}/courses/Courses
+Content-Type: application/json
+
+{
+    "title" : "Physics NEET Preparation",
+    "descr" : "Some Random course",
+    "seats" : 80
+}
+
+
+### 4. Read instructors
+GET {{baseUrl}}/course/Instructors
+
+
+### 5. Create one instructor
+POST {{baseUrl}}/course/Instructors 
+Content-Type: application/json
+
+{
+    "name" : "HC Verma",
+    "email" : "hcverma@iitbombay.com",
+    "bio" : "Physics faculty with more than 30 years of exp"
+}
