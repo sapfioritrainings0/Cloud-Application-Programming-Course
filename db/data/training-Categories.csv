@@ -1,6 +1,4 @@
-code,name,descr
-Categories-7977519,name-7977519,descr-7977519
-Categories-24214547,name-24214547,descr-24214547
-Categories-24214548,name-24214548,descr-24214548
-Categories-24214549,name-24214549,descr-24214549
-Categories-24214550,name-24214550,descr-24214550
+code;name;descr
+DEV;Development;Programming and application development
+ANALYTICS;Analytics;Reporting, data modeling and dashboards
+INTEGRATION;Integration;APIs, interfaces and middleware

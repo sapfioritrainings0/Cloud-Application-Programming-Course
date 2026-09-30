@@ -1,3 +1,4 @@
-ID,title,descr,startDate,endDate,seats,seatsBooked,price,currency_code,instructor_ID,category_code,createdAt,createdBy,modifiedAt,modifiedBy
-22100027-bb42-4d00-8f49-6771d7c370d6,CAP fundamentals,Build enterprise services with the SAP Cloud Application Programming Model,2026-09-21,2027-05-03,100,0,150.00,463,8330568d-10e6-41a8-9283-5bc38656ada0,Categories-7977519,2008-07-23T00:00:00.000Z,createdBy.d5ohn@example.com,2021-06-07T00:00:00.000Z,modifiedBy.d5ohn@example.org
-22100028-9168-4f83-ae3f-83b31b7e1de1,SAP HANA Modeling,dDesign calculation views and optimise data models,2026-10-14,2027-04-13,50,0,200.00,463,20570106-3247-4fa5-85e3-a14d4af6dd59,Categories-7977519,2007-06-09T00:00:00.000Z,createdBy.d5oho@example.org,2007-09-21T00:00:00.000Z,modifiedBy.d5oho@example.net
+ID;title;descr;startDate;endDate;seats;seatsBooked;price;currency_code;instructor_ID;category_code
+22100027-bb42-4d00-8f49-6771d7c370d6;CAP Fundamentals;Build enterprise services with the SAP Cloud Application Programming Model;2026-08-15;2026-08-17;20;2;25000.00;INR;31432557-28d5-4454-9c16-3971650bd835;DEV
+22100028-9168-4f83-ae3f-83b31b7e1de1;SAP HANA Modeling;Design calculation views and optimize data models on SAP HANA Cloud;2026-09-01;2026-09-03;15;1;30000.00;INR;37434256-f9f7-4a5b-ac69-274ac85acb0d;ANALYTICS
+

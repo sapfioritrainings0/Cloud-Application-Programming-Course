@@ -56,7 +56,7 @@ entity Enrollments : cuid, managed {
   //   key ID : UUID;
     course : Association to Courses;
     participant : Association to Participants;
-    status : EnrollmentStatus default 'CONFIRMED';
+    status : EnrollmentStatus @assert.range default 'CONFIRMED';
 }
 
 type Email : String(100) @assert.format : '^[^@]+@[^@]+$' ; // assert.format is for a string validation using RegEx. 

@@ -11,5 +11,22 @@
   "scripts": {
     "start": "cds-serve"
   },
+  "cds" : {
+    "requires" : {
+      "auth" :{
+        "kind" : "mocked",
+        "users" : {
+          "swapnil" : {
+            "password" : "test123",
+            "roles" : ["admin"]
+          },
+          "sachin" : {
+            "password" : "sachin123",
+            "roles" : ["admin" , "developer", "user"]
+          }
+        }
+      }
+    }
+  },
   "private": true
 }

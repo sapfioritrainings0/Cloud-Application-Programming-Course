@@ -1,6 +1,4 @@
-ID,name,email,bio,createdAt,createdBy,modifiedAt,modifiedBy
-31432557-28d5-4454-9c16-3971650bd835,name-31432557,email-31432557,bio-31432557,2020-02-13T00:00:00.000Z,createdBy.ippil@example.org,2012-05-04T00:00:00.000Z,modifiedBy.ippil@example.org
-37434256-f9f7-4a5b-ac69-274ac85acb0d,name-3743425,email-3743425,bio-3743425,2018-01-21T00:00:00.000Z,createdBy.288g1@example.com,2002-09-16T00:00:00.000Z,modifiedBy.288g1@example.com
-37434262-6ff5-4e22-8351-476208b83e9e,name-3743426,email-3743426,bio-3743426,2003-11-24T00:00:00.000Z,createdBy.288g2@example.com,2006-07-19T00:00:00.000Z,modifiedBy.288g2@example.org
-3743427a-6434-412e-8256-1ef33e05d440,name-3743427,email-3743427,bio-3743427,2005-04-30T00:00:00.000Z,createdBy.288g3@example.com,2014-09-23T00:00:00.000Z,modifiedBy.288g3@example.com
-37434284-8ede-44de-8d3e-e902fb74810a,name-3743428,email-3743428,bio-3743428,2004-10-22T00:00:00.000Z,createdBy.288g4@example.com,2022-07-27T00:00:00.000Z,modifiedBy.288g4@example.org
+ID;name;email;bio
+31432557-28d5-4454-9c16-3971650bd835;Rajesh Kumar;rajesh.kumar@academy.com;SAP CAP and Node.js specialist with 12 years of enterprise experience
+37434256-f9f7-4a5b-ac69-274ac85acb0d;Anita Desai;anita.desai@academy.com;SAP HANA modeling and analytics expert
+37434262-6ff5-4e22-8351-476208b83e9e;Michael Braun;michael.braun@academy.com;Integration architect focused on APIs and event-driven systems

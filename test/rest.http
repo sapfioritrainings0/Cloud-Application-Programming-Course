@@ -1,16 +1,17 @@
-@baseUrl = http://localhost:4004
-
+@baseUrl = http://localhost:4004/odata/v4
+@admin = swapnil:test123
 ### 1. Read all the courses
-GET {{baseUrl}}/courses/Courses
+GET {{baseUrl}}/catalog/Courses
 
 
 
 ### 2. Read a single course by the primary key
-GET {{baseUrl}}/course/Courses(22100027-bb42-4d00-8f49-6771d7c370d6)
+GET {{baseUrl}}/catalog/Courses(22100027-bb42-4d00-8f49-6771d7c370d6)
 
 
 ### 3. Create a course
-POST {{baseUrl}}/courses/Courses
+POST {{baseUrl}}/admin/Courses
+Authorization: Basic {{admin}}
 Content-Type: application/json
 
 {
@@ -21,8 +22,8 @@ Content-Type: application/json
 
 
 ### 4. Read instructors
-GET {{baseUrl}}/course/Instructors
-
+GET {{baseUrl}}/admin/Instructors
+Authorization: Basic {{admin}}
 
 ### 5. Create one instructor
 POST {{baseUrl}}/course/Instructors 
@@ -32,4 +33,140 @@ Content-Type: application/json
     "name" : "HC Verma",
     "email" : "hcverma@iitbombay.com",
     "bio" : "Physics faculty with more than 30 years of exp"
+}
+
+
+
+### 6. Read all enrollments
+GET {{baseUrl}}/admin/Enrollments
+Authorization: Basic {{admin}}
+
+
+### 7. Courses with their instructors expanded
+GET {{baseUrl}}/admin/Courses?$expand=instructor
+Authorization: Basic {{admin}}
+
+
+### 8. Courses with their instructors and categories
+GET {{baseUrl}}/admin/Courses?$expand=instructor,category
+Authorization: Basic {{admin}}
+
+
+### 9. Courses with just the instrutor name
+GET {{baseUrl}}/admin/Courses?$expand=instructor($select=name)
+Authorization: Basic {{admin}}
+
+### 10. Try to create a course without a title
+POST {{baseUrl}}/admin/Courses
+Content-Type: application/json
+Authorization: Basic {{admin}}
+
+{
+    "descr" : "Guitar basics",
+    "seats" : 100
+}
+
+
+### 11. If seats are not in the range given
+POST {{baseUrl}}/admin/Courses
+Content-Type: application/json
+Authorization: Basic {{admin}}
+
+{
+    "title" : "Guitar Course",
+    "descr" : "Guitar basics",
+    "seats" : 1000
+}
+
+
+### 12. Checking the assert.target annotation. Post an instructor which doesnt exist in the db
+POST {{baseUrl}}/admin/Courses
+Content-Type: application/json
+Authorization: Basic {{admin}}
+
+{
+    "title" : "Guitar Course",
+    "descr" : "Guitar basics",
+    "seats" : 100,
+    "instructor_ID" : "abcdijk"
+}
+
+
+### 13. Create a course
+POST {{baseUrl}}/admin/Courses
+Content-Type: application/json
+Authorization: Basic {{admin}}
+
+{
+    "title" : "SAP Fiori and UI5 Concepts",
+    "descr" : "Frontend tech stack to consume the CAPM service",
+    "seats" : 89,
+    "currency_code" : "INR",
+    "price" : "1000.00",
+    "instructor_ID" : "31432557-28d5-4454-9c16-3971650bd835",
+    "startDate" : "2026-10-25",
+    "endDate" : "2027-10-25"
+}
+
+
+### 14. Create a course with nested enrollment ( deep insert which comes with Composition)
+POST {{baseUrl}}/admin/Courses
+Content-Type: application/json
+Authorization: Basic {{admin}}
+
+{
+    "title" : "Excel Basics",
+    "descr" : "Excels for Chartered Accountants",
+    "seats" : 187,
+    "currency_code" : "EUR",
+    "price" : "14.48",
+    "instructor_ID" : "37434262-6ff5-4e22-8351-476208b83e9e",
+    "startDate" : "2026-10-25",
+    "endDate" : "2027-10-25",
+    "enrollments" :[ 
+        {"participant_ID" : "28361087-bdab-4381-be07-1d4568fc7b3b" , "status" : "CONFIRMED"}
+    ]
+}
+
+
+### 15. Get call forn Participants
+GET {{baseUrl}}/admin/Participants
+Authorization: Basic {{admin}}
+
+
+### 16. Fetch all the enrollments for all participants
+GET {{baseUrl}}/admin/Participants?$expand=enrollments
+Authorization: Basic {{admin}}
+
+
+### 17. fetch the enrollment for a particular partipant
+GET {{baseUrl}}/admin/Participants(28361085-2aec-4cd1-8aac-f8cac84cad4c)/enrollments
+Authorization: Basic {{admin}}
+
+
+### 18. Filter courses which have seats more than 80
+GET {{baseUrl}}/catalog/Courses?$filter=seatsAvailable gt 80
+
+
+### 19. Create an enrollment with incorrect status
+POST {{baseUrl}}/admin/Enrollments
+Content-Type: application/json
+Authorization: Basic {{admin}}
+
+{
+    "participant_ID" : "29198619-b3a8-49f1-b7c5-9332b304af3d",
+    "course_ID" : "e86a391a-40c7-433c-98ac-570e82800eac",
+    "status" : "TEST"
+}
+
+
+### 20. Create an enrollment with the correct status
+POST {{baseUrl}}/admin/Enrollments
+Content-Type: application/json
+Authorization: Basic {{admin}}
+
+{
+    "participant_ID" : "29198619-b3a8-49f1-b7c5-9332b304af3d",
+    "course_ID" : "e86a391a-40c7-433c-98ac-570e82800eac",
+    "status" : "WAITLISTED"
 }
