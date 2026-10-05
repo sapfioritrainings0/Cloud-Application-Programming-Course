@@ -1,32 +1,41 @@
 {
-  "name": "trainingmodule",
-  "version": "1.0.0",
-  "type": "module",
-  "dependencies": {
-    "@sap/cds": "^10"
-  },
-  "devDependencies": {
-    "@cap-js/sqlite": "^3"
-  },
-  "scripts": {
-    "start": "cds-serve"
-  },
-  "cds" : {
-    "requires" : {
-      "auth" :{
-        "kind" : "mocked",
-        "users" : {
-          "swapnil" : {
-            "password" : "test123",
-            "roles" : ["admin"]
-          },
-          "sachin" : {
-            "password" : "sachin123",
-            "roles" : ["admin" , "developer", "user"]
-          }
-        }
-      }
-    }
-  },
-  "private": true
+	"name": "trainingmodule",
+	"version": "1.0.0",
+	"type": "module",
+	"dependencies": {
+		"@sap/cds": "^10"
+	},
+	"devDependencies": {
+		"@cap-js/sqlite": "^3",
+		"@sap/cds-dk": "^10",
+		"cds-plugin-ui5": "^0.17.0",
+		"@sap/dev-cap-tools": "^1.31.0"
+	},
+	"scripts": {
+		"start": "cds-serve"
+	},
+	"cds": {
+		"requires": {
+			"auth": {
+				"kind": "mocked",
+				"users": {
+					"swapnil": {
+						"password": "test123",
+						"roles": [
+							"admin"
+						]
+					},
+					"sachin": {
+						"password": "sachin123",
+						"roles": [
+							"admin",
+							"developer",
+							"user"
+						]
+					}
+				}
+			}
+		}
+	},
+	"private": true
 }

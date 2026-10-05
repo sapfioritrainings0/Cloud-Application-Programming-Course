@@ -15,7 +15,7 @@ entity Courses : cuid, managed {
   startDate : Date;
 
   endDate : Date;
-  seats : Integer @assert.range: [1,500];
+  seats : Integer ;
   seatsBooked : Integer default 0;
  //  seatsLeft : Integer = seats - seatsBooked stored;  //calculated element
   price : Decimal(9, 2);

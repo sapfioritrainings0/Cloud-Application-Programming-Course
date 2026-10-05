@@ -17,7 +17,9 @@ Content-Type: application/json
 {
     "title" : "Physics NEET Preparation",
     "descr" : "Some Random course",
-    "seats" : 80
+    "seats" : -100,
+    "startDate" : "2026-10-05",
+    "endDate" : "2026-10-02"
 }
 
 
@@ -170,3 +172,27 @@ Authorization: Basic {{admin}}
     "course_ID" : "e86a391a-40c7-433c-98ac-570e82800eac",
     "status" : "WAITLISTED"
 }
+
+
+### 21. Create a participant
+POST {{baseUrl}}/admin/Participants
+Content-Type: application/json
+Authorization: Basic {{admin}}
+
+{
+    "name" : "       Swapnil               Garg       ",
+    "email" : "MYRANdomEmail@GMail.COM"
+}
+
+### 22. Update seats in an existing course
+PATCH {{baseUrl}}/admin/Courses(22100027-bb42-4d00-8f49-6771d7c370d6)
+Content-Type: application/json
+Authorization: Basic {{admin}}
+
+{"seats" : 15}
+
+
+
+### 23. Delete a course
+DELETE {{baseUrl}}/admin/Courses(22100028-9168-4f83-ae3f-83b31b7e1de1)
+Authorization: Basic {{admin}}
