@@ -1,5 +1,5 @@
 const cds = require('@sap/cds');
-const { SELECT } = require('@sap/cds/lib/ql/cds-ql');
+const { SELECT, UPDATE } = require('@sap/cds/lib/ql/cds-ql');
 
 module.exports = class CatalogService extends cds.ApplicationService {
     init()
@@ -28,10 +28,10 @@ module.exports = class CatalogService extends cds.ApplicationService {
 
             // seats validation
             if(startDate && endDate && (new Date(startDate) > new Date(endDate)))
-                req.reject(400, 'End Date must be greater than the Start date');
+                req.error(400, 'End Date must be greater than the Start date');
 
              if(seats == null || seats<=0)
-                req.error(400, 'Seats are mandatory to create a course', 'seats');
+                req.error(400, 'SEATS_CHECK', 'seats');
 
            
         });
@@ -59,7 +59,7 @@ module.exports = class CatalogService extends cds.ApplicationService {
 
             const current = await SELECT.one.from('training.Courses').columns('seatsBooked', 'title').where({ID : req.params[0].ID})
             if(current && seats <current.seatsBooked )
-                req.reject(400, `Cannot readuce seats to ${seats} : ${current.seatsBooked} seats already booked on course ${current.title}`);
+                req.reject(400,'UPDATE_SEATS', [seats, current.seatsBooked, current.title] );
         });
 
 
@@ -78,6 +78,59 @@ module.exports = class CatalogService extends cds.ApplicationService {
             }
         });
 
+        // ====================== 6. on Action - enroll logic for Courses =====================================//
+
+        this.on('enroll', async req=> {
+            const courseID = req.params[0].ID;
+            const { participant } = req.data;
+
+            //validation 1 : to check if the course exists or not
+            const course = await SELECT.one.from('training.Courses').where({ID : courseID});
+            if(!course)
+            {
+                return req.error(404, `Course ${courseID} not found`);
+            }
+
+            // validation 2 : check if the seats are available in the course
+            const leftSeats = course.seats - course.seatsBooked ;
+            // we can use this as well - course.seatsAvailable
+
+            if(leftSeats<=0)
+                return req.error(409, `Course ${course.title} is full`); 
+            // your assignment - in this case, dont give the error, just put the candidate as a waitlisted candidate
+
+
+            //validation 3 : if the participant already exists in the course
+            const exists = await SELECT.one.from('training.Enrollments').where({course_ID :courseID, participant_ID: participant});
+            if(exists)
+                return req.error(409, 'Participant is already enrolled in this course');
+
+
+            await INSERT.into('training.Enrollments').entries({
+                course_ID : courseID, participant_ID: participant, status: 'CONFIRMED'
+            });
+
+            await UPDATE('training.Courses', courseID).with({seatsBooked: {'+=' : 1}});
+            // UPDATE('training.Courses').set({seatsBooked: {'+=' : 1}}).where({ID: courseID})
+
+            const text = cds.i18n.messages.at('ENROLLED_SEATS', [leftSeats-1, course.title]);
+            return text;
+            //return `Enrolled - ${leftSeats-1} seat(s) are remaining on the course ${course.title}` ;
+        });
+
+
+        // =========================== 7. on Fucntion - read only calculation for available seats ============================//
+        this.on('availableSeats' , async req=> {
+            const {course} = req.data;
+
+            const row = await SELECT.one.from('training.Courses').where({ID: course});
+
+            if(!row)
+                return req.error(404, 'Course not found');
+
+            return row.seats - row.seatsBooked;
+        })
+
         super.init();
     }
 
@@ -90,4 +143,12 @@ module.exports = class CatalogService extends cds.ApplicationService {
 // SWAPNIL GARG
 // ASHA KUMAR SINGH
 
+/*
 
+{
+"participant" : "UUID",
+"status" : "WAITLISTED"
+}
+
+
+*/

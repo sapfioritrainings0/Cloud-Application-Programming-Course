@@ -41,17 +41,22 @@ using training as db from '../db/schema';
 //it requires a role to access this particular service
 service AdminService  @(
     requires : 'admin',
-    impl : 'srv/services.cjs'
+    impl : 'srv/services.js'
 ){
     entity Courses as projection on db.Courses;
      entity Instructors as projection on db.Instructors;
     entity Participants as projection on db.Participants;
     entity Enrollments as projection on db.Enrollments;
 
+    extend projection Courses with actions {
+        action enroll(participant : UUID) returns String;
+    }
+    
+
 }
 
 
-service CatalogService @(impl: 'srv/services.cjs'){
+service CatalogService @(impl: 'srv/services.js'){
    @readonly entity Courses as projection on db.Courses{
     *, 
         seats - seatsBooked as seatsAvailable : Integer,

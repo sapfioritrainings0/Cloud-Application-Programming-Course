@@ -13,6 +13,7 @@ GET {{baseUrl}}/catalog/Courses(22100027-bb42-4d00-8f49-6771d7c370d6)
 POST {{baseUrl}}/admin/Courses
 Authorization: Basic {{admin}}
 Content-Type: application/json
+Accept-Language: de
 
 {
     "title" : "Physics NEET Preparation",
@@ -196,3 +197,17 @@ Authorization: Basic {{admin}}
 ### 23. Delete a course
 DELETE {{baseUrl}}/admin/Courses(22100028-9168-4f83-ae3f-83b31b7e1de1)
 Authorization: Basic {{admin}}
+
+
+### 24. Enroll a participant
+POST {{baseUrl}}/admin/Courses(22100028-9168-4f83-ae3f-83b31b7e1de1)/AdminService.enroll
+Content-Type: application/json
+Authorization: Basic {{admin}}
+
+{
+    "participant" : "28361086-7a20-4a41-9471-b352e102cc78"
+}
+
+
+### 25. Calling the availableSeats function 
+GET {{baseUrl}}/catalog/availableSeats(course=22100028-9168-4f83-ae3f-83b31b7e1de1)
