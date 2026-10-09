@@ -40,7 +40,6 @@ using training as db from '../db/schema';
 
 //it requires a role to access this particular service
 service AdminService  @(
-    requires : 'admin',
     impl : 'srv/services.js'
 ){
     entity Courses as projection on db.Courses;

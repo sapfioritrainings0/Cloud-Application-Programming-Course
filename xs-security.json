@@ -1,0 +1,76 @@
+{
+ "xsappname": "trainingmodule",
+ "tenant-mode": "dedicated",
+ "description": "Security profile of the training course management app",
+ "scopes": [
+  {
+   "name": "$XSAPPNAME.admin",
+   "description": "Manage all courses, instructors, participants and enrollments"
+  },
+  {
+   "name": "$XSAPPNAME.instructor",
+   "description": "Read and update the courses you teach"
+  },
+  {
+   "name": "$XSAPPNAME.categoryManager",
+   "description": "Read and update courses in your assigned category"
+  }
+ ],
+ "attributes": [
+  {
+   "name": "category",
+   "description": "category of the course",
+   "valueType": "string",
+   "valueRequired": true
+  }
+ ],
+ "role-templates": [
+  {
+   "name": "admin",
+   "description": "Training administrator with full access",
+   "scope-references": [
+    "$XSAPPNAME.admin"
+   ]
+  },
+  {
+   "name": "instructor",
+   "description": "Instructor, limited to own courses",
+   "scope-references": [
+    "$XSAPPNAME.instructor"
+   ]
+  },
+  {
+   "name": "categoryManager",
+   "description": "Category manager, limited by the category attribute",
+   "scope-references": [
+    "$XSAPPNAME.categoryManager"
+   ],
+   "attribute-references": [
+    "category"
+   ]
+  }
+ ],
+ "role-collections": [
+  {
+   "name": "Training_Admin",
+   "description": "Full administration of the training app",
+   "role-template-references": [
+    "$XSAPPNAME.admin"
+   ]
+  },
+  {
+   "name": "Training_Instructor",
+   "description": "Instructors managing their own courses",
+   "role-template-references": [
+    "$XSAPPNAME.instructor"
+   ]
+  }
+ ],
+ "oauth2-configuration": {
+  "redirect-uris": [
+   "https://*hana.ondemand.com/**",
+   "https://localhost:5000/**",
+   "https://*.applicationstudio.cloud.sap/**"
+  ]
+ }
+}

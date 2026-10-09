@@ -102,6 +102,7 @@ module.exports = class CatalogService extends cds.ApplicationService {
 
             //validation 3 : if the participant already exists in the course
             const exists = await SELECT.one.from('training.Enrollments').where({course_ID :courseID, participant_ID: participant});
+            console.log("exists object: "+ exists);
             if(exists)
                 return req.error(409, 'Participant is already enrolled in this course');
 
